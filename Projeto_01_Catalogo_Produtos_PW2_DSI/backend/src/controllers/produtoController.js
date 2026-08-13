@@ -9,15 +9,15 @@ function cadastrarProduto(req, res) {
 
   if (!nome || preco === undefined) {
     return res.status(400).json({
-      mensagem: "Nome e preço são obrigatórios.",
+      mensagem: "Nome e preço são obrigatórios."
     });
   }
 
   const novoProduto = {
-    id: produtos.lenght > 0 ? produtos[produtos.length - 1].id + 1 : 1,
+    id: produtos.length > 0 ? produtos[produtos.length - 1].id + 1 : 1,
     nome,
     descricao: descricao || "",
-    preco: Number(preco),
+    preco: Number(preco)
   };
 
   produtos.push(novoProduto);
@@ -27,5 +27,5 @@ function cadastrarProduto(req, res) {
 
 module.exports = {
   listarProdutos,
-  cadastrarProduto,
+  cadastrarProduto
 };
