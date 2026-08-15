@@ -1,14 +1,13 @@
-import { FormProduto } from "./componentes/FormProduto";
+import { useEffect, useState } from "react";
+import FormProduto from "./componentes/FormProduto";
 import Header from "./componentes/Header";
-import Produto from "./componentes/Produto";
 import ListaProdutos from "./componentes/ListaProdutos";
-import { use, useEffect, useEffectEvent, useState } from "react";
 
-export default function App() {
+function App() {
   const [produtos, setProdutos] = useState([]);
   const [mensagem, setMensagem] = useState("");
 
-  async function cadastrarProduto(produto) {
+  async function carregarProdutos() {
     setMensagem("");
 
     try {
@@ -17,9 +16,10 @@ export default function App() {
 
       setProdutos(dados);
     } catch {
-      setMensagem("Não foi possivel carregar os produtos.");
+      setMensagem("Não foi possível carregar os produtos.");
     }
   }
+
   useEffect(() => {
     carregarProdutos();
   }, []);
@@ -31,7 +31,7 @@ export default function App() {
       const resposta = await fetch("/api/produtos", {
         method: "POST",
         headers: {
-          "Content-Type": "aplication/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(produto),
       });
@@ -45,14 +45,15 @@ export default function App() {
       const novoProduto = await resposta.json();
 
       setProdutos((produtosAtuais) => [...produtosAtuais, novoProduto]);
-    } catch (erro) {
-      setMensagem("Não foi possivel cadastrar o produto.", erro);
+    } catch {
+      setMensagem("Não foi possível cadastrar o produto.");
     }
   }
 
   return (
     <>
       <Header />
+
       <main className="container">
         <FormProduto aoCadastrar={cadastrarProduto} />
 
@@ -63,3 +64,5 @@ export default function App() {
     </>
   );
 }
+
+export default App;

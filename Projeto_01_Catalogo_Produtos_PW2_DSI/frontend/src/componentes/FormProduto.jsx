@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function FormProduto({ aoCadastrar }) {
+function FormProduto({ aoCadastrar }) {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [preco, setPreco] = useState("");
@@ -57,3 +57,5 @@ export function FormProduto({ aoCadastrar }) {
     </form>
   );
 }
+
+export default FormProduto;
